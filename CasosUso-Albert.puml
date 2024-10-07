@@ -1,0 +1,40 @@
+@startuml
+skinparam actorStyle awesome
+:Gestor: as Admin
+
+rectangle "Gestión de Excursiones" {
+    Admin --left-> (Crear Excursión)
+    Admin --left-> (Ver Excursiones)
+    (Ver Excursiones) -down-> (Editar Excursión) : <<extends>>
+    (Ver Excursiones) -down-> (Añadir Inscripción) : <<extends>>
+    (Ver Excursiones) --> (Filtrar Fecha)
+}
+
+rectangle "Gestión de Socios" {
+    Admin -right-> (Mostrar Socios)
+    Admin -right-> (Añadir Socio)
+
+    (Añadir Socio) -down-> (Federado)
+    (Añadir Socio) -down-> (Estándar)
+    (Añadir Socio) -down-> (Infantil)
+
+    (Mostrar Socios) -down-> (Filtrar Socios) : <<includes>>
+    (Filtrar Socios) -down-> (Federado)
+    (Filtrar Socios) -down-> (Estándar)
+    (Filtrar Socios) -down-> (Infantil)
+
+    (Filtrar Socios) --> (Mostrar Factura Mensual) : <<includes>>
+    (Filtrar Socios) --> (Eliminar Socio) : "Sin Excursiones"
+    (Filtrar Socios) --> (Modificar Seguro) : Estándar
+}
+
+rectangle "Gestión de Inscripciones" {
+    Admin --> (Ver Inscripciones)
+    (Ver Inscripciones) --> (Filtrar Socios) : <<includes>>
+    (Ver Inscripciones) --> (Filtrar Fecha)
+
+    (Filtrar Fecha) --> (Eliminar Inscripción) : "Fecha Cancelación < Fecha Excursión"
+    (Añadir Inscripción) --> (Añadir Socio) : Nuevo socio
+}
+
+@enduml
