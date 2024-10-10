@@ -1,0 +1,85 @@
+@startuml
+class Excursion {
+  +codigo: String
+  +descripcion: String
+  +fecha: LocalDate
+  +numDias: int
+  +precioInscripcion: double
+}
+
+abstract class Socio {
+  +numSocio: String
+  +nombre: String
+  +calcularFacturaMensual(): double
+}
+
+class SocioEstandar {
+  +nif: String
+  +seguro: Seguro
+  +modificarSeguro(Seguro seguro): void
+}
+
+class SocioFederado {
+  +nif: String
+  +federacion: Federacion
+  +descuentoExcursion: 10%
+  +descuentoCuota: 5%
+}
+
+class SocioInfantil {
+  +numSocioPadreOMadre: String
+  +descuentoCuota: 50%
+}
+
+class Seguro {
+  +tipo: String
+  +precio: double
+}
+
+class Federacion {
+  +codigo: String
+  +nombre: String
+}
+
+class Inscripcion {
+  +numInscripcion: String
+  +socio: Socio
+  +excursion: Excursion
+  +fechaInscripcion: LocalDate
+}
+
+class SocioManager {
+  +socios: List<Socio>
+  +añadirSocioEstandar(SocioEstandar socio): void
+  +modificarSeguroSocioEstandar(String numSocio, Seguro nuevoSeguro): void
+  +añadirSocioFederado(SocioFederado socio): void
+  +añadirSocioInfantil(SocioInfantil socio): void
+  +eliminarSocio(String numSocio): void
+  +mostrarSocios(String tipoSocio): void
+  +mostrarFacturaMensual(String numSocio): double
+}
+
+class ExcursionManager {
+  +excursiones: List<Excursion>
+  +añadirExcursion(Excursion excursion): void
+  +mostrarExcursionesEntreFechas(fechaInicio: LocalDate, fechaFin: LocalDate): void
+}
+
+class InscripcionManager {
+  +inscripciones: List<Inscripcion>
+  +añadirInscripcion(Inscripcion inscripcion): void
+  +eliminarInscripcion(String numInscripcion): void
+  +mostrarInscripciones(socio: Socio, fechaInicio: LocalDate, fechaFin: LocalDate): void
+}
+
+SocioManager --> Socio
+ExcursionManager --> Excursion
+InscripcionManager --> Inscripcion
+SocioEstandar --> Seguro
+SocioFederado --> Federacion
+Inscripcion --> Socio
+Inscripcion --> Excursion
+Socio <|-- SocioEstandar
+Socio <|-- SocioFederado
+Socio <|-- SocioInfantil
+@enduml

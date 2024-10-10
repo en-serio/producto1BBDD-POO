@@ -1,0 +1,38 @@
+@startuml
+left to right direction
+
+actor Usuario
+actor Socio
+
+package "Sistema de Gestión de Centro Excursionista" {
+  usecase "Añadir Excursión" as UC1
+  usecase "Mostrar Excursiones" as UC2
+  usecase "Añadir Socio Estándar" as UC3
+  usecase "Modificar Seguro de Socio Estándar" as UC4
+  usecase "Añadir Socio Federado" as UC5
+  usecase "Añadir Socio Infantil" as UC6
+  usecase "Eliminar Socio" as UC7
+  usecase "Mostrar Socios" as UC8
+  usecase "Mostrar Factura Mensual" as UC9
+  usecase "Añadir Inscripción" as UC10
+  usecase "Eliminar Inscripción" as UC11
+  usecase "Mostrar Inscripciones" as UC12
+}
+
+Usuario --> UC1
+Usuario --> UC2
+Usuario --> UC3
+Usuario --> UC4
+Usuario --> UC5
+Usuario --> UC6
+Usuario --> UC7
+Usuario --> UC8
+Usuario --> UC9
+Usuario --> UC10
+Usuario --> UC11
+Usuario --> UC12
+
+Socio --> UC9
+Socio --> UC12
+
+@enduml
