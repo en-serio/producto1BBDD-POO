@@ -1,0 +1,50 @@
+@startuml
+'https://plantuml.com/use-case-diagram
+skinparam actorStyle awesome
+:Gestor: as Admin
+
+Admin --left-> (Crear Excursión)
+Admin --left-> (Ver Excursiones)
+(Ver Excursiones) -down-> (Editar Excursión) : <<extends>>
+(Ver Excursiones) -down-> (Añadir inscripción) : <<extends>>
+
+
+Admin -right-> (Mostrar Socios)
+Admin -right-> (Añadir Socio)
+
+(Añadir Socio) -down-> (Federado)
+(Añadir Socio) -down-> (Estándar)
+(Añadir Socio) -down-> (Infantil)
+
+/'
+(Mostrar Socios) -down-> (Federado)
+(Mostrar Socios) -down-> (Estándar)
+(Mostrar Socios) -down-> (Infantil)
+'/
+
+(Mostrar Socios) -right-> (Filtrar socio)
+
+(Filtrar socio) -down-> (Federado)
+(Filtrar socio) -down-> (Estándar)
+(Filtrar socio) -down-> (Infantil)
+
+(Filtrar socio) --> (Mostrar Factura Mensual)
+
+/'Es necesaria la siguiente linea?
+(Estándar) --> (Modificar Seguro)'/
+(Filtrar socio) --> (Modificar Seguro) : Estándar
+
+Admin --> (Ver Inscripción)
+(Ver Excursiones) --> (Ver Inscripción)
+
+(Ver Inscripción) --> (Filtrar socio)
+(Ver Inscripción) --> (Filtrar Fecha)
+(Filtrar Fecha) --> (Eliminar Inscripción) : "Fecha Cancelación < Fecha Excursión"
+
+(Añadir inscripción) --> (Añadir Socio) : Nuevo socio
+
+(Ver Excursiones) --> (Filtrar Fecha)
+
+(Filtrar socio) --> (Eliminar Socio) : "Sin Excursiones"
+
+@enduml
